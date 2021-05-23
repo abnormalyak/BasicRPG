@@ -30,5 +30,12 @@ namespace WPFUI
 
             DataContext = _gameSession;
         }
+
+        private void ExperienceTest(object sender, RoutedEventArgs e) 
+        {
+            _gameSession.CurrentPlayer.Experience += 10;
+        }
     }
+
+    
 }
