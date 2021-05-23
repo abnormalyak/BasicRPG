@@ -5,15 +5,19 @@ using System.Text;
 
 namespace Engine.ViewModels
 {
-    class GameSession
+    public class GameSession
     {
-        Player CurrentPlayer { get; set; }
+        public Player CurrentPlayer { get; set; }
 
         public GameSession()
         {
             CurrentPlayer = new Player();
             CurrentPlayer.Name = "Abnormal";
             CurrentPlayer.Gold = 500;
+            CurrentPlayer.Class = "Mage";
+            CurrentPlayer.Level = 1;
+            CurrentPlayer.Health = 100;
+            CurrentPlayer.Experience = 0;
         }
-    }
+    } 
 }
