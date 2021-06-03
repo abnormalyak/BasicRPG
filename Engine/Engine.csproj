@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Locations\BeeField.png" />
+    <None Remove="Images\Locations\Farmhouse.png" />
     <None Remove="Images\Locations\Home.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Locations\BeeField.png" />
+    <Resource Include="Images\Locations\Farmhouse.png" />
     <Resource Include="Images\Locations\Home.png" />
   </ItemGroup>
 
