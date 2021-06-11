@@ -20,6 +20,8 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="2" Content="Menu" Background="AliceBlue"/>
+        
+        <!-- Player data -->
         <Label Grid.Row="1" Grid.Column="0" Content="Player Data" Background="Aquamarine"/>
         <Grid Grid.Row="1" Grid.Column="0" Background="Aquamarine">
             <Grid.RowDefinitions>
@@ -49,9 +51,9 @@
             <Label Grid.Row="4" Grid.Column="1" Content="{Binding CurrentPlayer.Experience}"/>
             <Label Grid.Row="5" Grid.Column="0" Content="Level:"/>
             <Label Grid.Row="5" Grid.Column="1" Content="{Binding CurrentPlayer.Level}"/>
-            <Button Grid.Row="6" Grid.Column="1" Content="Add XP" Click="ExperienceTest"/>
         </Grid>
 
+        <!-- Grid splitting the second column's second row -->
         <Grid Grid.Row="1" Grid.Column="1" Background="BlanchedAlmond">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -63,6 +65,7 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Location information -->
             <Border Grid.Row="0" Grid.Column="1" 
                     BorderBrush="Gainsboro"
                     BorderThickness="1">
@@ -92,8 +95,48 @@
             </Border>
         </Grid>
         <Label Grid.Row="2" Grid.Column="0" Content="Inventory/Quests" Background="RosyBrown"/>
-        <Label Grid.Row="2" Grid.Column="1" Content="Combat/Movement Controls" Background="PaleVioletRed"/>
+        
+        <!-- Combat controls -->
+        <Grid Grid.Row="2" Grid.Column="1"
+              Background="PaleVioletRed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="255"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="1" 
+                        Content="North"
+                        Click="OnClick_North"/>
+                <Button Grid.Row="1" Grid.Column="0" 
+                        Content="West"
+                        Click="OnClick_West"/>
+                <Button Grid.Row="1" Grid.Column="2" 
+                        Content="East"
+                        Click="OnClick_East"/>
+                <Button Grid.Row="2" Grid.Column="1" 
+                        Content="South"
+                        Click="OnClick_South"/>
+
+            </Grid>
+
+        </Grid>
 
     </Grid>
 </Window>
