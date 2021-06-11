@@ -31,10 +31,26 @@ namespace WPFUI
             DataContext = _gameSession;
         }
 
-        private void ExperienceTest(object sender, RoutedEventArgs e) 
+        private void OnClick_North(object sender, RoutedEventArgs e)
         {
-            _gameSession.CurrentPlayer.Experience += 10;
+            _gameSession.MoveNorth();
         }
+
+        private void OnClick_South(object sender, RoutedEventArgs e)
+        {
+            _gameSession.MoveSouth();
+        }
+
+        private void OnClick_West(object sender, RoutedEventArgs e)
+        {
+            _gameSession.MoveWest();
+        }
+
+        private void OnClick_East(object sender, RoutedEventArgs e)
+        {
+            _gameSession.MoveEast();
+        }
+
     }
 
     
