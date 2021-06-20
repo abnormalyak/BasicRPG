@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Engine.Models
 {
-    public class Player : INotifyPropertyChanged
+    public class Player : Notification
     {
         private string _name;
         private string _class;
@@ -61,14 +61,6 @@ namespace Engine.Models
                 _gold = value;
                 OnPropertyChanged("Gold");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string property)
-        {
-            // ? after a variable performs a null check before calling the following method
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property)); 
         }
     }
 }

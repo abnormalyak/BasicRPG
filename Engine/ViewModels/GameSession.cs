@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace Engine.ViewModels
 {
-    public class GameSession : INotifyPropertyChanged
+    public class GameSession : Notification
     {
         private Location _currentLocation;
 
@@ -40,14 +40,6 @@ namespace Engine.ViewModels
             CurrentWorld = factory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(-2, -1);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string property)
-        {
-            // ? after a variable performs a null check before calling the following method
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
         public void MoveNorth()
