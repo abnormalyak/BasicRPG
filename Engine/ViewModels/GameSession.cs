@@ -28,16 +28,17 @@ namespace Engine.ViewModels
 
         public GameSession()
         {
-            CurrentPlayer = new Player();
-            CurrentPlayer.Name = "Abnormal";
-            CurrentPlayer.Gold = 500;
-            CurrentPlayer.Class = "Mage";
-            CurrentPlayer.Level = 1;
-            CurrentPlayer.Health = 100;
-            CurrentPlayer.Experience = 0;
+            CurrentPlayer = new Player 
+            { 
+                Name = "Abnormal", 
+                Class = "Mage", 
+                Experience = 0, 
+                Gold = 500, 
+                Health = 100,
+                Level = 1
+            };
 
-            WorldFactory factory = new WorldFactory();
-            CurrentWorld = factory.CreateWorld();
+            CurrentWorld = WorldFactory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(-2, -1);
         }

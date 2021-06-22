@@ -5,9 +5,9 @@ using Engine.Models;
 
 namespace Engine.Factories
 {
-    internal class WorldFactory
+    internal static class WorldFactory
     {
-        internal World CreateWorld()
+        internal static World CreateWorld()
         {
             World newWorld = new World();
             
@@ -22,6 +22,7 @@ namespace Engine.Factories
 
             newWorld.AddLocation(0, -1, "Home", "Your house.",
             "pack://application:,,,/Engine;component/Images/Locations/Home.png");
+
             return newWorld;
         }
     }
