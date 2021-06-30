@@ -16,6 +16,8 @@ namespace Engine.Factories
                 "A dazingly beige field of corn, overrun with bees.",
                 "pack://application:,,,/Engine;component/Images/Locations/BeeField.png");
 
+            newWorld.LocationAt(-2, -1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
+
             newWorld.AddLocation(-1, -1, "Farmhouse",
                 "An out-of-the-way farmhouse - is anyone inside?",
                 "pack://application:,,,/Engine;component/Images/Locations/Farmhouse.png");
