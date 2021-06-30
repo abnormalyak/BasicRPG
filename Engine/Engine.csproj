@@ -8,12 +8,22 @@
     <None Remove="Images\Locations\BeeField.png" />
     <None Remove="Images\Locations\Farmhouse.png" />
     <None Remove="Images\Locations\Home.png" />
+    <None Remove="Images\Monsters\Bee.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Locations\BeeField.png" />
-    <Resource Include="Images\Locations\Farmhouse.png" />
-    <Resource Include="Images\Locations\Home.png" />
+    <Resource Include="Images\Locations\BeeField.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Locations\Farmhouse.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Locations\Home.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Monsters\Bee.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
