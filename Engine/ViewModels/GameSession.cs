@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Engine.Factories;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Engine.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Engine.ViewModels
                 _currentLocation = value;
 
                 OnPropertyChanged("CurrentLocation");
+
+                GiveQuests();
             }
         }
 
@@ -40,7 +43,7 @@ namespace Engine.ViewModels
 
             CurrentWorld = WorldFactory.CreateWorld();
 
-            CurrentLocation = CurrentWorld.LocationAt(-2, -1);
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
         }
 
         public void MoveNorth()
@@ -77,6 +80,17 @@ namespace Engine.ViewModels
             if (l != null)
             {
                 CurrentLocation = l;
+            }
+        }
+
+        public void GiveQuests()
+        {
+            foreach(Quest quest in CurrentLocation.QuestsAvailableHere)
+            {
+                if (!CurrentPlayer.Quests.Any(q => q.Quest.ID == quest.ID))
+                {
+                    CurrentPlayer.Quests.Add(new QuestStatus(quest));
+                }
             }
         }
     } 
