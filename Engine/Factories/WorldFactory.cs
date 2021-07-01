@@ -16,11 +16,15 @@ namespace Engine.Factories
                 "A dazingly beige field of corn, overrun with bees.",
                 "pack://application:,,,/Engine;component/Images/Locations/BeeField.png");
 
-            newWorld.LocationAt(-2, -1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
+            // Bee
+            newWorld.LocationAt(-2, -1).AddMonster(1, 100);
 
             newWorld.AddLocation(-1, -1, "Farmhouse",
                 "An out-of-the-way farmhouse - is anyone inside?",
                 "pack://application:,,,/Engine;component/Images/Locations/Farmhouse.png");
+
+            // Kill the bees quest
+            newWorld.LocationAt(-1, -1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
 
             newWorld.AddLocation(0, -1, "Home", "Your house.",
             "pack://application:,,,/Engine;component/Images/Locations/Home.png");
