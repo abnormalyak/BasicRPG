@@ -5,11 +5,16 @@ using System.Text;
 using Engine.Factories;
 using System.ComponentModel;
 using System.Linq;
+using Engine.EventArgs;
 
 namespace Engine.ViewModels
 {
     public class GameSession : Notification
     {
+        public event EventHandler<GameMessageEventArgs> OnMessageRaised;
+
+        #region Properties
+
         private Location _currentLocation;
         private Monster _currentMonster;
 
@@ -38,11 +43,18 @@ namespace Engine.ViewModels
                 _currentMonster = value;
                 OnPropertyChanged(nameof(CurrentMonster));
                 OnPropertyChanged(nameof(HasMonster));
+
+                if (CurrentMonster != null)
+                {
+                    RaiseMessage("");
+                    RaiseMessage($"A wild {CurrentMonster.Name} appears!");
+                }
             }
         }
 
         public bool HasMonster => CurrentMonster != null;
-        
+
+        #endregion
 
         public GameSession()
         {
@@ -112,6 +124,11 @@ namespace Engine.ViewModels
         private void FindMonsterAtLocation()
         {
             CurrentMonster = CurrentLocation.FindMonster();
+        }
+
+        private void RaiseMessage(string message)
+        {
+            OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
         }
     } 
 }
