@@ -1,0 +1,1 @@
+Following this tutorial: https://scottlilly.com/build-a-cwpf-rpg/ as my first venture into C#, in preparation for a work placement.
