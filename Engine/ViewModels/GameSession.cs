@@ -54,6 +54,8 @@ namespace Engine.ViewModels
 
         public bool HasMonster => CurrentMonster != null;
 
+        public Weapon CurrentWeapon { get; set; }
+
         #endregion
 
         public GameSession()
@@ -129,6 +131,77 @@ namespace Engine.ViewModels
         private void RaiseMessage(string message)
         {
             OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
+        }
+        
+        public void Attack()
+        {
+            // Checks player has weapon equipped
+            if (CurrentWeapon == null)
+            {
+                RaiseMessage("Equip a weapon first!");
+                return;
+            }
+
+            // Calculates damage dealt to the monster
+            int damageDealt = RandomNumberGenerator.NumberBetween
+                (CurrentWeapon.MinAttack, CurrentWeapon.MaxAttack);
+
+            if (damageDealt == 0)
+            {
+                RaiseMessage("You missed!");
+            }
+            else
+            {
+                CurrentMonster.Health -= damageDealt;
+                RaiseMessage($"You hit the {CurrentMonster.Name} for {damageDealt} damage!");
+            }
+
+
+            // If the monster is killed, award EXP, gold and items
+            if (CurrentMonster.Health <= 0)
+            {
+                RaiseMessage($"\nYou defeated the {CurrentMonster.Name}.");
+
+                CurrentPlayer.Experience += CurrentMonster.RewardEXP;
+                RaiseMessage($"\nYou receive {CurrentMonster.RewardEXP} EXP.");
+
+                CurrentPlayer.Gold += CurrentMonster.RewardGold;
+                RaiseMessage($"You receive {CurrentMonster.RewardGold} gold.");
+
+                foreach (ItemQuantity itemQuantity in CurrentMonster.Inventory)
+                {
+                    GameItem item = ItemFactory.CreateGameItem(itemQuantity.ItemID);
+                    CurrentPlayer.AddItemToInventory(item);
+                    RaiseMessage($"The {CurrentMonster.Name} dropped a {item.Name}");
+                }
+
+                FindMonsterAtLocation();
+            }
+            else
+            {
+                // If monster is still alive, monster attacks player
+                int damageReceived = RandomNumberGenerator.NumberBetween
+                    (CurrentMonster.MinimumDamage, CurrentMonster.MaximumDamage);
+
+                if (damageReceived == 0)
+                {
+                    RaiseMessage($"You dodge the {CurrentMonster.Name}'s attack!");
+                }
+                else
+                {
+                    CurrentPlayer.Health -= damageReceived;
+                    RaiseMessage($"The {CurrentMonster.Name} attacks, " +
+                        $"dealing {damageReceived} damage.");
+                }
+
+                if (CurrentPlayer.Health <= 0)
+                {
+                    RaiseMessage($"\nYou are slain by the {CurrentMonster.Name}");
+
+                    CurrentLocation = CurrentWorld.LocationAt(0, -1);
+                    CurrentPlayer.Health = CurrentPlayer.Level * 10;
+                }
+            }
         }
     } 
 }
