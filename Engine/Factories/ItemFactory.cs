@@ -15,7 +15,7 @@ namespace Engine.Factories
         {
             _items = new List<GameItem>();
             _items.Add(new GameItem(1, "Potion", 15));
-            _items.Add(new Weapon(1001, "Iron Sword", 50, 7));
+            _items.Add(new Weapon(1001, "Iron Sword", 50, 5, 7));
             _items.Add(new GameItem(9001, "Stinger", 5));
             _items.Add(new GameItem(9002, "Bee Wings", 3));
         }
@@ -26,6 +26,10 @@ namespace Engine.Factories
 
             if (item != null)
             {
+                if (item is Weapon)
+                {
+                    return (item as Weapon).Clone(); // 'as' is how casting is done in C#
+                }
                 return item.Clone();
             }
 
