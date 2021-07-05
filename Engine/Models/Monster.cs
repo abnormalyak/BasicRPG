@@ -15,20 +15,24 @@ namespace Engine.Models
         public int Health
         {
             get { return _health; }
-            private set
+            set
             {
                 _health = value;
                 OnPropertyChanged(nameof(Health));
             }
         }
 
+        public int MinimumDamage { get; set; }
+        public int MaximumDamage { get; set; }
+
         public int RewardEXP { get; private set; }
         public int RewardGold { get; private set; }
 
         public ObservableCollection<ItemQuantity> Inventory { get; set; }
 
-        public Monster(string name, string imageName, int maxHealth,
-            int health, int rewardEXP, int rewardGold)
+        public Monster(string name, string imageName, int maxHealth, int health, 
+            int minimumDamage, int maximumDamage,
+            int rewardEXP, int rewardGold)
         {
             Name = name;
             ImageName = string.Format(
@@ -36,6 +40,8 @@ namespace Engine.Models
                 imageName);
             MaxHealth = maxHealth;
             Health = (health > maxHealth) ? maxHealth : health;
+            MinimumDamage = minimumDamage;
+            MaximumDamage = maximumDamage;
             RewardEXP = rewardEXP;
             RewardGold = rewardGold;
             Inventory = new ObservableCollection<ItemQuantity>();

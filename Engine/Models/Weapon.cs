@@ -6,17 +6,20 @@ namespace Engine.Models
 {
     public class Weapon : GameItem
     {
-        public int Attack { get; set; }
+        public int MinAttack { get; set; }
+        public int MaxAttack { get; set; }
 
-        public Weapon(int id, string name, int value, int attack) 
+        public Weapon(int id, string name, int value, 
+            int minAttack, int maxAttack) 
             : base(id, name, value)
         {
-            Attack = attack;
+            MinAttack = minAttack;
+            MaxAttack = maxAttack;
         }
 
         public new Weapon Clone()
         {
-            return new Weapon(ItemID, Name, Value, Attack);
+            return new Weapon(ItemID, Name, Value, MinAttack, MaxAttack);
         }
     }
 }
