@@ -142,6 +142,12 @@ namespace Engine.ViewModels
         
         public void Attack()
         {
+            // Checks if a monster is actually present
+            // (shouldn't be possible for function to be called if a monster isn't present)
+            if (CurrentMonster == null)
+            {
+                RaiseMessage("There's nothing to attack!");
+            }
             // Checks player has weapon equipped
             if (CurrentWeapon == null)
             {
