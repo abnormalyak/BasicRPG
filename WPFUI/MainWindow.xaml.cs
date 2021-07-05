@@ -53,6 +53,11 @@ namespace WPFUI
         {
             _gameSession.MoveEast();
         }
+        
+        private void OnClick_Attack(object sender, RoutedEventArgs e)
+        {
+            _gameSession.Attack();
+        }
 
         private void OnGameMessageRaised(object sender, GameMessageEventArgs e)
         {
@@ -60,6 +65,7 @@ namespace WPFUI
             GameMessages.ScrollToEnd();
         }
 
+        
     }
 
     
