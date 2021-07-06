@@ -225,7 +225,7 @@
                           ItemsSource="{Binding CurrentPlayer.Weapons}"
                           SelectedItem="{Binding CurrentWeapon}"
                           DisplayMemberPath="Name"
-                          SelectedValuePath="ID"/>
+                          SelectedValuePath="ItemID"/>
 
                 <Button Grid.Row="0" Grid.Column="2"
                         Content="Use"
