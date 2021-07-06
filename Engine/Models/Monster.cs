@@ -35,9 +35,7 @@ namespace Engine.Models
             int rewardEXP, int rewardGold)
         {
             Name = name;
-            ImageName = string.Format(
-                "pack://application:,,,/Engine;component/Images/Monsters/{0}", 
-                imageName);
+            ImageName = $"pack://application:,,,/Engine;component/Images/Monsters/{imageName}";
             MaxHealth = maxHealth;
             Health = (health > maxHealth) ? maxHealth : health;
             MinimumDamage = minimumDamage;

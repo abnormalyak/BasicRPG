@@ -8,12 +8,11 @@ namespace Engine.Factories
 {
     public static class ItemFactory
     {
-        private static List<GameItem> _items;
+        private static readonly List<GameItem> _items = new List<GameItem>();
 
         // This function is run whenever the class is first called
         static ItemFactory()
         {
-            _items = new List<GameItem>();
             _items.Add(new GameItem(1, "Potion", 15));
             _items.Add(new Weapon(1001, "Iron Sword", 50, 5, 7));
             _items.Add(new GameItem(9001, "Stinger", 5));
