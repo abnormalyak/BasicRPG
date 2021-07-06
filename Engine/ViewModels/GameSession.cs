@@ -212,7 +212,7 @@ namespace Engine.ViewModels
                     RaiseMessage($"\nYou are slain by the {CurrentMonster.Name}");
 
                     CurrentLocation = CurrentWorld.LocationAt(0, -1);
-                    CurrentPlayer.Health = CurrentPlayer.Level * 10;
+                    CurrentPlayer.Health = CurrentPlayer.Level * 100;
                 }
             }
         }
