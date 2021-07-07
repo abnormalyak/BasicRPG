@@ -14,6 +14,7 @@ namespace Engine.Factories
         static ItemFactory()
         {
             _items.Add(new GameItem(1, "Potion", 15));
+            _items.Add(new GameItem(2, "Popcorn", 10));
             _items.Add(new Weapon(1001, "Iron Sword", 50, 5, 7));
             _items.Add(new GameItem(9001, "Stinger", 5));
             _items.Add(new GameItem(9002, "Bee Wings", 3));
