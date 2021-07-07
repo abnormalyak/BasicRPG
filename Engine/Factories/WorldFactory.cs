@@ -21,6 +21,8 @@ namespace Engine.Factories
             newWorld.AddLocation(-1, -1, "Farmhouse",
                 "An out-of-the-way farmhouse - is anyone inside?",
                 "Farmhouse.png");
+            newWorld.LocationAt(-1, -1).TraderHere =
+                TraderFactory.GetTraderByName("Farmer");
 
             // Kill the bees quest
             newWorld.LocationAt(-1, -1).QuestsAvailableHere.Add(QuestFactory.GetQuestByID(1));
