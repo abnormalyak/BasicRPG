@@ -17,6 +17,7 @@ namespace Engine.ViewModels
 
         private Location _currentLocation;
         private Monster _currentMonster;
+        private Trader _currentTrader;
 
         public Player CurrentPlayer { get; set; }
         public Location CurrentLocation
@@ -31,6 +32,8 @@ namespace Engine.ViewModels
                 CompleteQuests();
                 GiveQuests();
                 FindMonsterAtLocation();
+
+                CurrentTrader = CurrentLocation.TraderHere;
             }
         }
 
@@ -55,8 +58,21 @@ namespace Engine.ViewModels
 
         public bool HasMonster => CurrentMonster != null;
 
+        public bool HasTrader => CurrentTrader != null;
+
         public Weapon CurrentWeapon { get; set; }
 
+        public Trader CurrentTrader
+        {
+            get { return _currentTrader; }
+            set
+            {
+                _currentTrader = value;
+
+                OnPropertyChanged(nameof(CurrentTrader));
+                OnPropertyChanged(nameof(HasTrader));
+            }
+        }
         #endregion
 
         public GameSession()
@@ -66,7 +82,7 @@ namespace Engine.ViewModels
                 Name = "Abnormal", 
                 Class = "Mage", 
                 Experience = 0, 
-                Gold = 500, 
+                Gold = 500,
                 Health = 100,
                 Level = 1
             };
