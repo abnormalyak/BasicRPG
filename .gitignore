@@ -3,3 +3,4 @@ WPFUI/obj/
 Engine/bin/
 Engine/obj/
 .vs/
+*.user
