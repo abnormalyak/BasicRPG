@@ -77,13 +77,14 @@ namespace Engine.ViewModels
 
         public GameSession()
         {
-            CurrentPlayer = new Player 
-            { 
-                Name = "Abnormal", 
-                Class = "Mage", 
-                Experience = 0, 
+            CurrentPlayer = new Player
+            {
+                Name = "Abnormal",
+                Class = "Mage",
+                Experience = 0,
                 Gold = 500,
                 Health = 100,
+                MaximumHealth = 100,
                 Level = 1
             };
 
@@ -259,14 +260,13 @@ namespace Engine.ViewModels
                 CurrentPlayer.Experience += CurrentMonster.RewardEXP;
                 RaiseMessage($"\nYou receive {CurrentMonster.RewardEXP} EXP.");
 
-                CurrentPlayer.Gold += CurrentMonster.RewardGold;
-                RaiseMessage($"You receive {CurrentMonster.RewardGold} gold.");
+                CurrentPlayer.Gold += CurrentMonster.Gold;
+                RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
 
-                foreach (ItemQuantity itemQuantity in CurrentMonster.Inventory)
+                foreach (GameItem gameItem in CurrentMonster.Inventory)
                 {
-                    GameItem item = ItemFactory.CreateGameItem(itemQuantity.ItemID);
-                    CurrentPlayer.AddItemToInventory(item);
-                    RaiseMessage($"The {CurrentMonster.Name} dropped a {item.Name}");
+                    CurrentPlayer.AddItemToInventory(gameItem);
+                    RaiseMessage($"The {CurrentMonster.Name} dropped a {gameItem.Name}");
                 }
 
                 FindMonsterAtLocation();
