@@ -11,7 +11,7 @@ namespace Engine.Models
 
         public Weapon(int id, string name, int value, 
             int minAttack, int maxAttack) 
-            : base(id, name, value)
+            : base(id, name, value, true)
         {
             MinAttack = minAttack;
             MaxAttack = maxAttack;
