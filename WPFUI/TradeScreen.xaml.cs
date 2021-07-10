@@ -28,13 +28,13 @@ namespace WPFUI
 
         private void OnClick_Sell(object sender, RoutedEventArgs e)
         {
-            GameItem item = ((FrameworkElement)sender).DataContext as GameItem;
+            GroupedInventoryItem groupedItem = ((FrameworkElement)sender).DataContext as GroupedInventoryItem;
 
-            if (item != null)
+            if (groupedItem != null)
             {
-                Session.CurrentPlayer.Gold += item.Value;
-                Session.CurrentPlayer.RemoveItemFromInventory(item);
-                Session.CurrentTrader.AddItemToInventory(item);
+                Session.CurrentPlayer.Gold += groupedItem.Item.Value;
+                Session.CurrentPlayer.RemoveItemFromInventory(groupedItem.Item);
+                Session.CurrentTrader.AddItemToInventory(groupedItem.Item);
             }
             else
             {
@@ -44,13 +44,13 @@ namespace WPFUI
 
         private void OnClick_Buy(object sender, RoutedEventArgs e)
         {
-            GameItem item = ((FrameworkElement)sender).DataContext as GameItem;
+            GroupedInventoryItem groupedItem = ((FrameworkElement)sender).DataContext as GroupedInventoryItem;
 
-            if (item != null && Session.CurrentPlayer.Gold >= item.Value)
+            if (groupedItem != null && Session.CurrentPlayer.Gold >= groupedItem.Item.Value)
             {
-                Session.CurrentPlayer.Gold -= item.Value;
-                Session.CurrentTrader.RemoveItemFromInventory(item);
-                Session.CurrentPlayer.AddItemToInventory(item);
+                Session.CurrentPlayer.Gold -= groupedItem.Item.Value;
+                Session.CurrentTrader.RemoveItemFromInventory(groupedItem.Item);
+                Session.CurrentPlayer.AddItemToInventory(groupedItem.Item);
             }
             else
             {

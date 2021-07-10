@@ -38,7 +38,7 @@
 
         <DataGrid Grid.Row="2" Grid.Column="0"
                   Margin="10"
-                  ItemsSource="{Binding CurrentPlayer.Inventory}"
+                  ItemsSource="{Binding CurrentPlayer.GroupedInventory}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
                   CanUserAddRows="False"
@@ -48,18 +48,22 @@
                 <DataGridTextColumn Header="Item"
                                     IsReadOnly="True"
                                     Width="*"
-                                    Binding="{Binding Path=Name}"/>
+                                    Binding="{Binding Path=Item.Name}"/>
+                <DataGridTextColumn Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Quantity}"/>
                 <DataGridTextColumn Header="Value (g)"
                                     IsReadOnly="True"
                                     Width="Auto"
-                                    Binding="{Binding Path=Value}"/>
+                                    Binding="{Binding Path=Item.Value}"/>
 
                 <DataGridTemplateColumn MinWidth="75">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="OnClick_Sell"
                                     Width="55"
-                                    Content="Sell"/>
+                                    Content="Sell x1"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -68,7 +72,7 @@
 
         <DataGrid Grid.Row="2" Grid.Column="1"
                   Margin="10"
-                  ItemsSource="{Binding CurrentTrader.Inventory}"
+                  ItemsSource="{Binding CurrentTrader.GroupedInventory}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
                   CanUserAddRows="False"
@@ -78,18 +82,22 @@
                 <DataGridTextColumn Header="Item"
                                     IsReadOnly="True"
                                     Width="*"
-                                    Binding="{Binding Path=Name}"/>
+                                    Binding="{Binding Path=Item.Name}"/>
+                <DataGridTextColumn Header="Qty"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding="{Binding Path=Quantity}"/>
                 <DataGridTextColumn Header="Value (g)"
                                     IsReadOnly="True"
                                     Width="Auto"
-                                    Binding="{Binding Path=Value}"/>
+                                    Binding="{Binding Path=Item.Value}"/>
 
                 <DataGridTemplateColumn MinWidth="75">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="OnClick_Buy"
                                     Width="55"
-                                    Content="Buy"/>
+                                    Content="Buy x1"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
