@@ -55,23 +55,57 @@ namespace Engine.Models
 
         public ObservableCollection<GameItem> Inventory { get; set; }
 
+        public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; set; }
+
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
 
         protected Entity()
         {
             Inventory = new ObservableCollection<GameItem>();
+            GroupedInventory = new ObservableCollection<GroupedInventoryItem>();
         }
 
         public void AddItemToInventory(GameItem item)
         {
             Inventory.Add(item);
 
+            if (item.IsUnique)
+            {
+                GroupedInventory.Add(new GroupedInventoryItem(item, 1));
+            }
+            else
+            {
+                if (!GroupedInventory.Any(i => i.Item.ItemID == item.ItemID))
+                {
+                    GroupedInventory.Add(new GroupedInventoryItem(item, 1));
+                }
+                else
+                {
+                    GroupedInventory.First(i => i.Item.ItemID == item.ItemID).Quantity++;
+                }
+            }
+
             OnPropertyChanged(nameof(Weapons));
         }
 
-        public void RemoveItemFromInventory(GameItem item)
+        public void RemoveItemFromInventory(GameItem item) 
         {
             Inventory.Remove(item);
+
+            GroupedInventoryItem toRemove =
+                GroupedInventory.FirstOrDefault(i => i.Item == item);
+            
+            if (toRemove != null)
+            {
+                if (toRemove.Quantity == 1)
+                {
+                    GroupedInventory.Remove(toRemove);
+                }
+                else
+                {
+                    toRemove.Quantity--;
+                }
+            }
 
             OnPropertyChanged(nameof(Weapons));
         }
