@@ -15,17 +15,14 @@ namespace Engine.Models
         public int RewardEXP { get; private set; }
 
         public Monster(string name, string imageName, int maxHealth, int health, 
-            int minimumDamage, int maximumDamage,
-            int rewardEXP, int rewardGold)
+                int minimumDamage, int maximumDamage,
+                int rewardEXP, int rewardGold) : 
+            base(name, maxHealth, health, rewardGold)
         {
-            Name = name;
             ImageName = $"pack://application:,,,/Engine;component/Images/Monsters/{imageName}";
-            MaximumHealth = maxHealth;
-            Health = (health > maxHealth) ? maxHealth : health;
             MinimumDamage = minimumDamage;
             MaximumDamage = maximumDamage;
             RewardEXP = rewardEXP;
-            Gold = rewardGold;
         }
     }
 }

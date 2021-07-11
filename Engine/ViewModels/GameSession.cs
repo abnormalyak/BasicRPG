@@ -15,11 +15,31 @@ namespace Engine.ViewModels
 
         #region Properties
 
+        private Player _currentPlayer;
         private Location _currentLocation;
         private Monster _currentMonster;
         private Trader _currentTrader;
 
-        public Player CurrentPlayer { get; set; }
+        public Player CurrentPlayer
+        {
+            get { return _currentPlayer; }
+            set
+            {
+                // Unsubscribe the current Player object before setting the new value
+                // Aids garbage collection (otherwise, old object not cleared from memory)
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                }
+
+                _currentPlayer = value;
+
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.OnKilled += OnCurrentPlayerKilled;
+                }
+            }
+        }
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -44,12 +64,19 @@ namespace Engine.ViewModels
             get { return _currentMonster; }
             set
             {
+                if (_currentMonster != null)
+                {
+                    _currentMonster.OnKilled -= OnCurrentMonsterKilled;
+                }
+
                 _currentMonster = value;
                 OnPropertyChanged(nameof(CurrentMonster));
                 OnPropertyChanged(nameof(HasMonster));
 
                 if (CurrentMonster != null)
                 {
+                    _currentMonster.OnKilled += OnCurrentMonsterKilled;
+
                     RaiseMessage("");
                     RaiseMessage($"A wild {CurrentMonster.Name} appears!");
                 }
@@ -77,16 +104,7 @@ namespace Engine.ViewModels
 
         public GameSession()
         {
-            CurrentPlayer = new Player
-            {
-                Name = "Abnormal",
-                Class = "Mage",
-                Experience = 0,
-                Gold = 500,
-                Health = 100,
-                MaximumHealth = 100,
-                Level = 1
-            };
+            CurrentPlayer = new Player("Abnormal", "Mage", 0, 100, 100, 500);
 
             if (!CurrentPlayer.Weapons.Any())
             {
@@ -187,7 +205,7 @@ namespace Engine.ViewModels
                         CurrentPlayer.Experience += quest.RewardEXP;
                         RaiseMessage($"You receive {quest.RewardEXP} experience.");
 
-                        CurrentPlayer.Gold += quest.RewardGold;
+                        CurrentPlayer.ReceiveGold(quest.RewardGold);
                         RaiseMessage($"You receive {quest.RewardGold} gold.");
 
                         // Add reward items to the player's inventory.
@@ -230,6 +248,7 @@ namespace Engine.ViewModels
             {
                 RaiseMessage("There's nothing to attack!");
             }
+
             // Checks player has weapon equipped
             if (CurrentWeapon == null)
             {
@@ -247,28 +266,14 @@ namespace Engine.ViewModels
             }
             else
             {
-                CurrentMonster.Health -= damageDealt;
                 RaiseMessage($"You hit the {CurrentMonster.Name} for {damageDealt} damage!");
+                CurrentMonster.TakeDamage(damageDealt);
             }
 
 
             // If the monster is killed, award EXP, gold and items
-            if (CurrentMonster.Health <= 0)
+            if (CurrentMonster.IsDead)
             {
-                RaiseMessage($"\nYou defeated the {CurrentMonster.Name}.");
-
-                CurrentPlayer.Experience += CurrentMonster.RewardEXP;
-                RaiseMessage($"\nYou receive {CurrentMonster.RewardEXP} EXP.");
-
-                CurrentPlayer.Gold += CurrentMonster.Gold;
-                RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
-
-                foreach (GameItem gameItem in CurrentMonster.Inventory)
-                {
-                    CurrentPlayer.AddItemToInventory(gameItem);
-                    RaiseMessage($"The {CurrentMonster.Name} dropped a {gameItem.Name}");
-                }
-
                 FindMonsterAtLocation();
             }
             else
@@ -283,18 +288,35 @@ namespace Engine.ViewModels
                 }
                 else
                 {
-                    CurrentPlayer.Health -= damageReceived;
                     RaiseMessage($"The {CurrentMonster.Name} attacks, " +
                         $"dealing {damageReceived} damage.");
+                    CurrentPlayer.TakeDamage(damageReceived);
                 }
+            }
+        }
 
-                if (CurrentPlayer.Health <= 0)
-                {
-                    RaiseMessage($"\nYou are slain by the {CurrentMonster.Name}");
+        private void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage($"\nYou are slain by the {CurrentMonster.Name}");
 
-                    CurrentLocation = CurrentWorld.LocationAt(0, -1);
-                    CurrentPlayer.Health = CurrentPlayer.Level * 100;
-                }
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
+            CurrentPlayer.FullHeal();
+        }
+
+        private void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage($"\nYou defeated the {CurrentMonster.Name}.");
+
+            CurrentPlayer.Experience += CurrentMonster.RewardEXP;
+            RaiseMessage($"\nYou receive {CurrentMonster.RewardEXP} EXP.");
+
+            CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
+            RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
+
+            foreach (GameItem gameItem in CurrentMonster.Inventory)
+            {
+                CurrentPlayer.AddItemToInventory(gameItem);
+                RaiseMessage($"The {CurrentMonster.Name} dropped a {gameItem.Name}");
             }
         }
     } 

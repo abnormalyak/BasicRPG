@@ -1,16 +1,6 @@
 ﻿using Engine.Models;
 using Engine.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPFUI
 {
@@ -32,7 +22,7 @@ namespace WPFUI
 
             if (groupedItem != null)
             {
-                Session.CurrentPlayer.Gold += groupedItem.Item.Value;
+                Session.CurrentPlayer.ReceiveGold(groupedItem.Item.Value);
                 Session.CurrentPlayer.RemoveItemFromInventory(groupedItem.Item);
                 Session.CurrentTrader.AddItemToInventory(groupedItem.Item);
             }
@@ -48,7 +38,7 @@ namespace WPFUI
 
             if (groupedItem != null && Session.CurrentPlayer.Gold >= groupedItem.Item.Value)
             {
-                Session.CurrentPlayer.Gold -= groupedItem.Item.Value;
+                Session.CurrentPlayer.SpendGold(groupedItem.Item.Value);
                 Session.CurrentTrader.RemoveItemFromInventory(groupedItem.Item);
                 Session.CurrentPlayer.AddItemToInventory(groupedItem.Item);
             }

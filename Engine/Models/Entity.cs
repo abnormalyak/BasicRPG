@@ -16,7 +16,7 @@ namespace Engine.Models
         public string Name
         {
             get { return _name; }
-            set
+            private set
             {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
@@ -26,7 +26,7 @@ namespace Engine.Models
         public int Health
         {
             get { return _health; }
-            set
+            private set
             {
                 _health = value;
                 OnPropertyChanged(nameof(Health));
@@ -36,7 +36,7 @@ namespace Engine.Models
         public int MaximumHealth
         {
             get { return _maximumHealth; }
-            set
+            private set
             {
                 _maximumHealth = value;
                 OnPropertyChanged(nameof(MaximumHealth));
@@ -46,7 +46,7 @@ namespace Engine.Models
         public int Gold
         {
             get { return _gold; }
-            set
+            private set
             {
                 _gold = value;
                 OnPropertyChanged(nameof(Gold));
@@ -59,10 +59,60 @@ namespace Engine.Models
 
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
 
-        protected Entity()
+        public bool IsDead => Health <= 0;
+
+        public event EventHandler OnKilled;
+
+        protected Entity(string name, int maximumHealth, int health, int gold)
         {
+            Name = name;
+            MaximumHealth = maximumHealth;
+            Health = health;
+            Gold = gold;
+
             Inventory = new ObservableCollection<GameItem>();
             GroupedInventory = new ObservableCollection<GroupedInventoryItem>();
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+
+            if (IsDead)
+            {
+                Health = 0;
+                RaiseOnKilledEvent();
+            }
+        }
+
+        public void Heal(int health)
+        {
+            Health += health;
+
+            if (Health > MaximumHealth)
+            {
+                Health = MaximumHealth;
+            }
+        }
+
+        public void FullHeal()
+        {
+            Health = MaximumHealth;
+        }
+
+        public void ReceiveGold(int amount)
+        {
+            Gold += amount;
+        }
+
+        public void SpendGold(int amount)
+        {
+            if (amount > Gold)
+            {
+                throw new ArgumentOutOfRangeException($"Not enough gold available.");
+            }
+
+            Gold -= amount;
         }
 
         public void AddItemToInventory(GameItem item)
@@ -108,6 +158,11 @@ namespace Engine.Models
             }
 
             OnPropertyChanged(nameof(Weapons));
+        }
+
+        private void RaiseOnKilledEvent()
+        {
+            OnKilled?.Invoke(this, new System.EventArgs());
         }
     }
 }
