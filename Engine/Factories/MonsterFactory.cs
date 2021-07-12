@@ -12,7 +12,7 @@ namespace Engine.Factories
             switch (id)
             {
                 case 1:
-                    Monster bee = new Monster("Bee", "Bee.png", 10, 10, 15, 30, 20, 3);
+                    Monster bee = new Monster("Bee", "Bee.png", 10, 10, 5, 15, 20, 3);
 
                     AddLootItem(bee, 9001, 40);
                     AddLootItem(bee, 9002, 60);
