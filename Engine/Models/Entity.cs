@@ -12,6 +12,7 @@ namespace Engine.Models
         private int _health;
         private int _maximumHealth;
         private int _gold;
+        private int _level;
 
         public string Name
         {
@@ -36,7 +37,7 @@ namespace Engine.Models
         public int MaximumHealth
         {
             get { return _maximumHealth; }
-            private set
+            protected set
             {
                 _maximumHealth = value;
                 OnPropertyChanged(nameof(MaximumHealth));
@@ -53,6 +54,16 @@ namespace Engine.Models
             }
         }
 
+        public int Level
+        {
+            get { return _level; }
+            protected set
+            {
+                _level = value;
+                OnPropertyChanged("Level");
+            }
+        }
+
         public ObservableCollection<GameItem> Inventory { get; set; }
 
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; set; }
@@ -63,12 +74,14 @@ namespace Engine.Models
 
         public event EventHandler OnKilled;
 
-        protected Entity(string name, int maximumHealth, int health, int gold)
+        protected Entity(string name, int maximumHealth, int health, int gold,
+            int level = 1)
         {
             Name = name;
             MaximumHealth = maximumHealth;
             Health = health;
             Gold = gold;
+            Level = level;
 
             Inventory = new ObservableCollection<GameItem>();
             GroupedInventory = new ObservableCollection<GroupedInventoryItem>();

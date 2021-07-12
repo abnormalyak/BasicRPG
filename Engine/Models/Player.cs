@@ -11,7 +11,6 @@ namespace Engine.Models
     {
         private string _class;
         private int _experience;
-        private int _level;
 
         public string Class
         {
@@ -24,22 +23,18 @@ namespace Engine.Models
         }
 
         public int Experience { get { return _experience; } 
-            set { 
+            private set { 
                 _experience = value;
+
                 OnPropertyChanged("Experience");
+
+                CheckLevelUp();
             } 
-        }
-        public int Level
-        {
-            get { return _level; }
-            set
-            {
-                _level = value;
-                OnPropertyChanged("Level");
-            }
         }
 
         public ObservableCollection<QuestStatus> Quests { get; set; }
+
+        public event EventHandler OnLevelUp;
 
         public Player(string name, string playerClass, int experience,
                 int maximumHealth, int health, int gold) :
@@ -62,6 +57,25 @@ namespace Engine.Models
             }
 
             return true;
+        }
+
+        public void GainExperience(int exp)
+        {
+            Experience += exp;
+        }
+
+        public void CheckLevelUp()
+        {
+            int originalLevel = Level;
+
+            Level = (Experience / 100) + 1;
+
+            if (Level > originalLevel)
+            {
+                MaximumHealth = Level * 100;
+
+                OnLevelUp?.Invoke(this, System.EventArgs.Empty);
+            }
         }
     }
 }

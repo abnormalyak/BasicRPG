@@ -29,6 +29,7 @@ namespace Engine.ViewModels
                 // Aids garbage collection (otherwise, old object not cleared from memory)
                 if (_currentPlayer != null)
                 {
+                    _currentPlayer.OnLevelUp -= OnCurrentPlayerLevelUp;
                     _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
                 }
 
@@ -36,6 +37,7 @@ namespace Engine.ViewModels
 
                 if (_currentPlayer != null)
                 {
+                    _currentPlayer.OnLevelUp += OnCurrentPlayerLevelUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
             }
@@ -202,7 +204,7 @@ namespace Engine.ViewModels
 
                         RaiseMessage($"\nYou completed the {quest.Name} quest.");
 
-                        CurrentPlayer.Experience += quest.RewardEXP;
+                        CurrentPlayer.GainExperience(quest.RewardEXP);
                         RaiseMessage($"You receive {quest.RewardEXP} experience.");
 
                         CurrentPlayer.ReceiveGold(quest.RewardGold);
@@ -307,7 +309,7 @@ namespace Engine.ViewModels
         {
             RaiseMessage($"\nYou defeated the {CurrentMonster.Name}.");
 
-            CurrentPlayer.Experience += CurrentMonster.RewardEXP;
+            CurrentPlayer.GainExperience(CurrentMonster.RewardEXP);
             RaiseMessage($"\nYou receive {CurrentMonster.RewardEXP} EXP.");
 
             CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
@@ -318,6 +320,11 @@ namespace Engine.ViewModels
                 CurrentPlayer.AddItemToInventory(gameItem);
                 RaiseMessage($"The {CurrentMonster.Name} dropped a {gameItem.Name}");
             }
+        }
+
+        private void OnCurrentPlayerLevelUp(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage($"Level up! ({CurrentPlayer.Level - 1} -> {CurrentPlayer.Level})");
         }
     } 
 }
