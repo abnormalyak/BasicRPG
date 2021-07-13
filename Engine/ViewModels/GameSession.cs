@@ -49,7 +49,7 @@ namespace Engine.ViewModels
             {
                 _currentLocation = value;
 
-                OnPropertyChanged("CurrentLocation");
+                OnPropertyChanged();
 
                 CompleteQuests();
                 GiveQuests();
@@ -59,7 +59,7 @@ namespace Engine.ViewModels
             }
         }
 
-        public World CurrentWorld { get; set; }
+        public World CurrentWorld { get; }
 
         public Monster CurrentMonster
         {
@@ -72,7 +72,7 @@ namespace Engine.ViewModels
                 }
 
                 _currentMonster = value;
-                OnPropertyChanged(nameof(CurrentMonster));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(HasMonster));
 
                 if (CurrentMonster != null)
@@ -98,7 +98,7 @@ namespace Engine.ViewModels
             {
                 _currentTrader = value;
 
-                OnPropertyChanged(nameof(CurrentTrader));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(HasTrader));
             }
         }

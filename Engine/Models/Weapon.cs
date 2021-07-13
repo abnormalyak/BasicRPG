@@ -6,8 +6,8 @@ namespace Engine.Models
 {
     public class Weapon : GameItem
     {
-        public int MinAttack { get; set; }
-        public int MaxAttack { get; set; }
+        public int MinAttack { get; }
+        public int MaxAttack { get; }
 
         public Weapon(int id, string name, int value, 
             int minAttack, int maxAttack) 

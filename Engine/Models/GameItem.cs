@@ -6,10 +6,10 @@ namespace Engine.Models
 {
     public class GameItem
     {
-        public int ItemID { get; set; }
-        public string Name { get; set; }
-        public int Value { get; set; }
-        public bool IsUnique { get; set; }
+        public int ItemID { get; }
+        public string Name { get; }
+        public int Value { get; }
+        public bool IsUnique { get; }
 
         public GameItem(int id, string name, int value, bool isUnique = false)
         {

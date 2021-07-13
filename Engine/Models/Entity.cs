@@ -20,7 +20,7 @@ namespace Engine.Models
             private set
             {
                 _name = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged();
             }
         }
 
@@ -30,7 +30,7 @@ namespace Engine.Models
             private set
             {
                 _health = value;
-                OnPropertyChanged(nameof(Health));
+                OnPropertyChanged();
             }
         }
 
@@ -40,7 +40,7 @@ namespace Engine.Models
             protected set
             {
                 _maximumHealth = value;
-                OnPropertyChanged(nameof(MaximumHealth));
+                OnPropertyChanged();
             }
         }
 
@@ -50,7 +50,7 @@ namespace Engine.Models
             private set
             {
                 _gold = value;
-                OnPropertyChanged(nameof(Gold));
+                OnPropertyChanged();
             }
         }
 
@@ -60,13 +60,13 @@ namespace Engine.Models
             protected set
             {
                 _level = value;
-                OnPropertyChanged("Level");
+                OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<GameItem> Inventory { get; set; }
+        public ObservableCollection<GameItem> Inventory { get; }
 
-        public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; set; }
+        public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
 
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
 

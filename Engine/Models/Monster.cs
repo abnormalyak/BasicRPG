@@ -7,12 +7,12 @@ namespace Engine.Models
 {
     public class Monster : Entity
     {
-        public string ImageName { get; set; }
+        public string ImageName { get; }
 
-        public int MinimumDamage { get; set; }
-        public int MaximumDamage { get; set; }
+        public int MinimumDamage { get; }
+        public int MaximumDamage { get; }
 
-        public int RewardEXP { get; private set; }
+        public int RewardEXP { get; }
 
         public Monster(string name, string imageName, int maxHealth, int health, 
                 int minimumDamage, int maximumDamage,

@@ -11,14 +11,8 @@ namespace Engine.Models
         internal void AddLocation(int xCoord, int yCoord, string name,
             string description, string imgName)
         {
-            Location loc = new Location();
-            loc.XCoordinate = xCoord;
-            loc.YCoordinate = yCoord;
-            loc.Name = name;
-            loc.Description = description;
-            loc.ImageName = $"pack://application:,,,/Engine;component/Images/Locations/{imgName}";
-
-            _locations.Add(loc);
+            _locations.Add(new Location(xCoord, yCoord, name, 
+                description, $"pack://application:,,,/Engine;component/Images/Locations/{imgName}"));
         }
 
         public Location LocationAt(int xCoord, int yCoord)
