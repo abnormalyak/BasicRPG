@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFUI", "WPFUI\WPFUI.csproj", "{22DFAC81-2CCB-428E-B5C5-DD90A5A2E801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{734E90A1-B014-483E-91B2-BEB324D7D0ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csproj", "{734E90A1-B014-483E-91B2-BEB324D7D0ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEngine", "TestEngine\TestEngine.csproj", "{0CEF5A3C-6641-4914-9E8C-DFA824AB6823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{734E90A1-B014-483E-91B2-BEB324D7D0ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734E90A1-B014-483E-91B2-BEB324D7D0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734E90A1-B014-483E-91B2-BEB324D7D0ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CEF5A3C-6641-4914-9E8C-DFA824AB6823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CEF5A3C-6641-4914-9E8C-DFA824AB6823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CEF5A3C-6641-4914-9E8C-DFA824AB6823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CEF5A3C-6641-4914-9E8C-DFA824AB6823}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
