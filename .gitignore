@@ -4,3 +4,6 @@ Engine/bin/
 Engine/obj/
 .vs/
 *.user
+packages/
+TestEngine/bin/
+TestEngine/obj/
